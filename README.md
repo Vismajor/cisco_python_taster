@@ -73,7 +73,7 @@ greeting = 'Hello' + ' World!'
 print(greeting)
 ```
 
-Guide students through writing a simple theatre play:
+Let's write a small theater play!
 
 ```python
 print("Rebecca: Hi, I'm Rebecca!")
@@ -81,7 +81,7 @@ print("James: Hi Rebecca, I'm James!")
 print("Rebecca: Good to meet you James!")
 ```
 
-something is not DRY (Don't Repeat Yourself). Names are repeated a lot. We could extract them to two variables, you have seen this already:
+This does not feel DRY (Don't Repeat Yourself). Names are repeated a lot. We could extract them to two variables, you have seen this already:
 
 ```python
 person1 = "Rebecca"
@@ -105,7 +105,7 @@ print("person1: Good to meet you person2!")
 
 ```
 
-But this still does not work! Correct. Notice that things in brackets are in English (not Python) so do not get intepreted. We need to tell Python that when we say person1 we actually mean the VALUE stored in the variable person1 (which is Rebecca). We do this with 'comicbook swearing' syntax, aka. string interpolation. To make it happen, highlight a word in side of a string and press Shift+3   
+But this still does not work! Correct. Notice that things in brackets are in English (not Python) so do not get intepreted. We need to tell Python that when we say person1 we actually mean the VALUE stored in the variable person1 (which is Rebecca). We do this with 'comicbook swearing' syntax, aka. string interpolation.
 
 ```python
 person1 = "Rebecca"
@@ -125,7 +125,6 @@ print(f"{person1}: Good to meet you {person2}!")
 >	- use user input to change code path (**input + if**)
 
 Let's make our computer take some decisions!
-When explaining if else, use the metaphor of train tracks detaching from main route and then returning to it (and point to indentation when you're doing it).
 
 ```python
 person1 = "Rebecca"
@@ -139,7 +138,7 @@ print(f"{person1}: Good to meet you {person2}!")
 ```
 
 Run the code as is and then change both names to the same one and see what happens.
-After adding ELSE, have students change values again. Here you can explain what TESTING is. that you should always aim top explore every possible route of action (each possible train route) so that you definitely know it works.
+After every change, we want to run our code - for the time being, this will be our testing, however in real life we would write tests that can automate this process for us!
 
 
 ```python
@@ -176,7 +175,7 @@ print(f"{person1}: Good to meet you {person2}!")
 
 play the game a few times. Make sure you reach each possible line of code
 
-## TAKE A BREAK HERE
+## OPTIONAL BREAK
 
 ## **Repeating things**
 
@@ -187,12 +186,9 @@ play the game a few times. Make sure you reach each possible line of code
 >	- loop through the variables (**for x in xs**) and 'temporary' variables
 >	- understand performance implications of improving your code (**2n vs n+1 vs 4 lines of code**)
 
-Let's store some planet information. We'll need a new file:
+Let's store some planet information. We'll need a new file, let's call it planets.py.
 
-- create a file in that folder `touch planets.py`
-- open that file in atom editor `atom planets.py`
-
-Students: In that new file, create a variable called planet and put in it  string 'Mercury'. Then print it on the screen. You know how to do it!
+In that new file, create a variable called planet and put in it  string 'Mercury'. Then print it on the screen. You know how to do it!
 Students run the file. Make sure they run the correct file.
 
 ```python
@@ -212,7 +208,7 @@ print(planet2)
 print(planet3)
 ```
 
-Note that this is all great but if we have 100 planets how many lines of code will we have? (200, as in 100*2) Write that on whiteboard.
+Note that this is all great but if we have 100 planets how many lines of code will we have? (200, as in 100*2)
 But computers are great at storing data. So let's use them for that. We can use something called List, it's a box in which we hold lots of data. It even uses box-looking brackets to do that! (language metaphor: "List of options")
 
 To get things out of a list, you use the INDEX of each item. Think of your index finger - it's for pointing at things - Index in array is a number that points at each item.
@@ -267,11 +263,9 @@ Notice that now how many lines do we need for 100 planets? just 4. How about for
 >	- extract user output out of the logic as an example of good coding practice and separation of responsibility
 >	- understand that we have build a full stack app (data, input, logic, controller, output)
 
-In the last section we will not learn anything new, but we'll combine all the knowledge we have to create a full stack game. What's full stack? No spoilers! You will find out at the end.
+In the last section we will not learn anything new, but we'll combine all the knowledge we have to create a full stack game.
 
-Tell students that if at any points things get too much, they can close their laptops and just watch you code.
-
-Students: Add a few more planets. Then ask user what's their favourite planet. Capture their response in a variable guess and repeat it to them. Then say goodbye.
+Add a few more planets. Then ask user what's their favourite planet. Capture their response in a variable guess and repeat it to them. Then say goodbye.
 
 ```python
 planets = [ "Mercury", "Venus", "Earth", "Mars" , "Jupiter"]
@@ -289,13 +283,11 @@ print("Goodbye!")
 
 When we're looping through planets, it's not very useful to just print them all, let's do something else instead.
 
-Students: Print to the screen a message based on whether the favourite planet is in the solar system, or not.
+Print to the screen a message based on whether the favourite planet is in the solar system, or not.
 Like "Mars is in solar system" or "Mars is not in solar system".
-Students: Use if else, which you know how to use already.
+Use if else, which you know how to use already.
 
-note: students most likely will produce below code, so go along with it and type that on the screen. It will introduce a bug.
-
-```oython
+```python
 planets = [ "Mercury", "Venus", "Earth", "Mars" , "Jupiter"]
 favourite = intput("What's your favourite planet?")
 print(f"You said: {favourite}, thank you")
@@ -323,10 +315,6 @@ Mars ISN'T in solar system!
 Goodbye!
 ```
 
-This is not correct, discuss briefly with students if they understand what is going on. You can use the metaphor of the little child going through a list of cards, in search of an Ace of Spades, and shouts "Ace of Spades is not in a deck!" every time she sees a cards that's not an Ace of Spades. Amongst all that oversharing and shouting child might eventually shout "Ace of Spades is in a deck!" if it's in the deck.
-
-What the child should rather do is: go through all the cards and keep in their mind if the card was already found or not. And then at the very end, after seeing all the cards, they can say "Ace of Spades IS / ISN'T  in a deck!"
-
 Fun fact: Unexpected behaviour in a computer program is called a computer Bug, notably because Grace Hopper described a month that got stuck in the insides of their computer and caused it to malfunction. (for interested: It was in the relay, which is sort of like a light switch or a piano key).
 
 ## Final part: Full Stack and architecture
@@ -337,8 +325,6 @@ Fun fact: Unexpected behaviour in a computer program is called a computer Bug, n
 >	- know the concept of a boolean flag (**a true/false variable**)
 >	- extract user output out of the logic as an example of good coding practice and separation of responsibility
 >	- understand that we have build a full stack app (data, input, logic, controller, output)
-
-Note: at this point depending on the time, you might tell the class to close their laptops and just pay attention to the code you are creating. You can make it quite discursive and indeed explain to them what Mob programming is ("like with pitchforks and torches").
 
 We already know that computers can store a piece of information in a little bucket, called variable. We can store strings, numbers or even arrays. But another thing we can store, and something that computers love is a true/false value (it's basically 0 or 1). We call them Boolean values, from the name of George Boole who popularised the idea.  
 
@@ -371,8 +357,6 @@ print("Goodbye!")
 Have students play the game a few times.
 
 ### Full-stack app and what is software architecture
-
-Explain that this basically concludes the lesson, but you want to bring their attention to the architectural choices that we've made. This simple game follows what we call a Model-View-Controller + Data architecture, and could be described as a full stack app.
 
 **Full Stack** means that you are building everything needed for a successful app. If app was a restaurant, full stack consists of the Front-End and Back-End. Back-end is the kitchen, hobs, ingredients, cooks, the printer through which the orders come in and the window through which the food comes out - everything that the user does not see. Front end will be the chairs, tables, waiters, printed menus, sigh over the entrance - everything that the user does see.
 
