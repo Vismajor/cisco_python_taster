@@ -2,14 +2,6 @@
 
 **Lesson Duration: 60 + 60 minutes**
 
-> **Note to instructors: Read these notes once or twice and then just use them as visual clues. You'll need to use some of your own metaphors and explaining style**
-
-## Intro
-
->	LEARNING GOALS:
->	- Know what programming is: metaphor of a TV program
->	- Difference between reading code and running (aka. executing, interpreting) code (like knowing how to clap vs clapping; "say: Hi Steve", "Hi Steve")
-
 ### Understand what programming is
 
 What would you use the word 'program' in an everyday English? (let people give you answers)
@@ -22,16 +14,6 @@ Definitely a TV program (aka. schedule) is a great example:
 
 Today we will write our first computer programs. We will instruct the computer to do things from top to bottom and watch the computer execute each command. Just like when composing the TV program, we will write a set of commands (think of them as orders, requests or tasks) and then we will tell computer to interpret these lines of code as an actual actions.
 
-Instruct everyone to:
-
-- open terminal
-- create a folder `mkdir coding`
-- enter that folder `cd coding`
-- create a file in that folder `touch names.py`
-- open that file in atom editor `atom names.py` (here you can instruct everyone to use Tab button for completing the words)
-- at this point instruct everyone to layout their computers in split screen. Code on left hand side, terminal on right hand side. (On a mac you do this by long-holding the green button on top left of the window, and while holding it, you drag it to the side of the screen, then select the other app to take up the rest of the screen.
-
-Note: when they run the file, teach them to use arrow up and enter in terminal.
 
 ### Know what computers are good at
 
@@ -48,7 +30,7 @@ Throughout this lessons we will give computers tasks that computers are good at 
 >	- assign values **=**
 
 Say something simple. (print, stands for print a string of characters on screen)
-Notice that the word "print" is not prInted on the screen. This is INTERPRETED!
+Notice that the word "print" is not printed on the screen. This is INTERPRETED!
 
 ```python
 print('Hello World!')
@@ -405,3 +387,68 @@ Explain that this basically concludes the lesson, but you want to bring their at
 - Controller (selecting what View to show based on the data). This is the part that connects all the other parts. It can also be swapped, or improved, without impacting on the rest of the system. You can think of how the Amazon website looks different depending on if you are logged in or not. There's probably a boolean flag is_user_logged_in (true or false) in their code. Based on its value Amazon might show you the Log In button or Log Out button.
 
 This was a simplified example of Full Stack MVC+D model, but hopefully you see the modular architecture of code that makes it convenient to work on and error-proof.
+
+
+# Working with external systems - REST API's
+
+For this exercise we're going to apply some of the Python we've learnt and take it a step further by interacting with other systems by using their REST API. Within this exercise we're going to be working with the REST API for DNA-Centre. REST API's allow us to interact with another system send and recieve data, we can typically use them to automate a repetitive task for this example going to create a script that logs into a DNA Centre and collects information about the network devices on that DNA-Centre. 
+
+## Pre-requisites
+
+First in your script we need to configure some libraries we'll need. The main module we'll use in this exercise is the reponse module, which allows us to make HTTP requests and work with the response. We'll walk you through how it works in later steps, for now just import the libraries we need with the below commands.
+
+```
+import requests
+from requests.auth import HTTPBasicAuth
+import pprint
+```
+
+![](./images/import.gif)
+
+## Authentication
+
+As we would do with any system we have to authenticate before we can use it. This is pretty much as we would do on the web, by providing a username and password. We'll use the below code example to get a token back and save the token in a variable called token to use later.
+
+```
+username = "devnetuser"
+password = "Cisco123!"
+
+url = 'https://sandboxdnac.cisco.com/dna/system/api/v1/auth/token'       # Endpoint URL
+resp = requests.post(url, auth=HTTPBasicAuth(username, password))  # Make the POST Request
+token = resp.json()['Token']    # Retrieve the Token from the returned JSON
+print("Token Retrieved: {}".format(token))  # Print out the Token
+```
+
+![](./images/token.gif)
+
+When the code above runs, under the hood all that's happening is a API call is being sent with our username and password  and a token is being returned which we can use now in further API requests (Don't worry, as you can see it's running over HTTPS so all messages are encrypted. This is almsot exactly what happens when you login to DNA-C in the webui, your browser will store a cookie. It's the same concept.
+
+## Getting a list of devices
+
+Now we've logged in and our token is stored in a variable (called Token) it's time now to build our script. Here we're going to use the network device API to get
+
+```
+url = "https://sandboxdnac.cisco.com/api/v1/network-device" #Network Device endpoint
+hdr = {'x-auth-token': token, 'content-type' : 'application/json'} #Build header Info
+resp = requests.get(url, headers=hdr)  # Make the Get Request
+device_list = resp.json() # Capture data from the controller
+
+```
+
+![](./images/rest-call.gif)
+
+
+Now we've go our response, it's time to print it out to the console so the user can reader it. In an actual app we might build a report or use the response to take another action in our program however we'll leave that for another time. 
+
+For now lets just keep it simple and print out our output to the console. To do that we could just simply use the ```print(device_list)``` and we've done in the past but this just prints out a big block of text which isn't really readable. However another way is to use a module called pprint (pretty print) to prin the json response out in a nice formatted way which is much easier to read.
+
+```
+pp = pprint.PrettyPrinter(indent=4)# Pretty print the data
+pp.pprint(device_list)
+```
+
+![](./images/run.gif)
+
+
+Congratulations, you've just made your first API call!
+
