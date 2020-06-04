@@ -436,3 +436,25 @@ pp.pprint(device_list)
 
 Congratulations, you've just made your first API call!
 
+# A little bonus! Just watch
+
+Finally, let's take a look at something fun, but potentially practical!
+
+Let's imagine your boss checks your Slack/Hipchat activity every now and then - but you feel like taking a 60 minute nap just to energize yourself again! What do we need then?
+Moving the cursor constantly so it looks like we are active! Let's use Python for this neat little trick!
+
+```python
+import pyautogui
+import sched
+s = sched.scheduler()
+def move_cursor(): 
+    print("Doing stuff...")
+    pyautogui.moveTo(150,100, duration = 2)
+    pyautogui.moveTo(200,300, duration = 2)
+
+    s.enter(5, 1, do_something)
+    s.run()
+
+move_cursor()
+```
+
