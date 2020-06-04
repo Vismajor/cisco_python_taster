@@ -452,7 +452,7 @@ def move_cursor():
     pyautogui.moveTo(150,100, duration = 2)
     pyautogui.moveTo(200,300, duration = 2)
 
-    s.enter(5, 1, do_something)
+    s.enter(5, 1, move_cursor)
     s.run()
 
 move_cursor()
